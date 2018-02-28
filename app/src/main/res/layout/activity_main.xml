@@ -6,13 +6,69 @@
     android:layout_height="match_parent"
     tools:context="ru.napoleonit.smartmorozov.kotlinapp1.MainActivity">
 
-    <TextView
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <LinearLayout
+        android:id="@+id/button1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guideline1"
+        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_weight="1"
+        style="@style/mainButton">
+        <ImageView
+            android:id="@+id/imageView1"
+            android:src="@drawable/recycle128"
+            android:contentDescription="@string/button1"
+            style="@style/imageOnButton" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:text="@string/button1"
+            style="@style/textOnButton" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/button2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/button5"
+        app:layout_constraintStart_toStartOf="@id/guideline1"
+        style="@style/mainButton">
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/button3"
+        app:layout_constraintTop_toBottomOf="@+id/button1"
+        app:layout_constraintEnd_toStartOf="@id/guideline1"
+        app:layout_constraintBottom_toTopOf="@+id/button4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_weight="2"
+        style="@style/mainButton">
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/button4"
+        app:layout_constraintTop_toBottomOf="@+id/button3"
+        app:layout_constraintEnd_toStartOf="@id/guideline1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_weight="1"
+        style="@style/mainButton">
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/button5"
+        app:layout_constraintTop_toBottomOf="@+id/button2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline1"
+        style="@style/mainButton">
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

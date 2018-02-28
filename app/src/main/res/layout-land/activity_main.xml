@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ru.napoleonit.smartmorozov.kotlinapp1.MainActivity"
+    tools:layout_editor_absoluteY="81dp">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <LinearLayout
+        android:id="@+id/button1"
+        style="@style/mainButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button3"
+        app:layout_constraintBottom_toTopOf="@id/guideline1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_weight="1">
+        <ImageView
+            android:id="@+id/imageView1"
+            style="@style/imageOnButton"
+            android:contentDescription="@string/button1"
+            android:src="@drawable/recycle128" />
+
+        <TextView
+            android:id="@+id/textView1"
+            style="@style/textOnButton"
+            android:text="@string/button1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/button2"
+        style="@style/mainButton"
+        app:layout_constraintTop_toTopOf="@id/guideline1"
+        app:layout_constraintEnd_toStartOf="@+id/button5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/button3"
+        style="@style/mainButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button4"
+        app:layout_constraintBottom_toTopOf="@id/guideline1"
+        app:layout_constraintStart_toEndOf="@+id/button1"
+        app:layout_constraintHorizontal_weight="2"/>
+
+    <LinearLayout
+        android:id="@+id/button4"
+        style="@style/mainButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/guideline1"
+        app:layout_constraintStart_toEndOf="@+id/button3"
+        app:layout_constraintHorizontal_weight="1"/>
+
+    <LinearLayout
+        android:id="@+id/button5"
+        style="@style/mainButton"
+        app:layout_constraintTop_toTopOf="@id/guideline1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button2"/>
+
+</android.support.constraint.ConstraintLayout>

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">kotlinapp1</string>
+    <string name="button1">RecyclerView</string>
+    <string name="vitamin_s_avatar">vitamin\'s avatar</string>
 </resources>
