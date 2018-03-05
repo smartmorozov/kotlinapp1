@@ -9,26 +9,39 @@ import android.widget.TextView
 import android.widget.ImageView
 
 
-class VitaminAdapter (private val vitamins: MutableList<Vitamin>) : RecyclerView.Adapter<VitaminAdapter.ViewHolder>() {
+class VitaminAdapter (
+        private val vitamins: MutableList<Vitamin>, //принимаем данные
+        private val onItemClick: (View, Int) -> Unit  //и штуку, которой нужно передавать инфу о нажатиях
+) : RecyclerView.Adapter<VitaminAdapter.ViewHolder>() {
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    // Макет для элементов. Создаёт связи с вьюхами и навешивает на них слушателей нажатий.
+    class ViewHolder(itemView: View, private val onItemClick: (View, Int) -> Unit) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         val cv: CardView = itemView.findViewById(R.id.vitamin_cv) as CardView
         val vitaminName: TextView = itemView.findViewById(R.id.vitamin_name)
         val vitaminDescription: TextView = itemView.findViewById(R.id.vitamin_description)
         val vitaminIv: ImageView = itemView.findViewById(R.id.vitamin_iv)
+
+        init {
+            cv.setOnClickListener(this)
+            vitaminName.setOnClickListener(this)
+            vitaminDescription.setOnClickListener(this)
+            vitaminIv.setOnClickListener(this)
+        }
+
+        //обработчик нажатий
+        override fun onClick(view: View) {
+            onItemClick(view, adapterPosition) //передаёт инфу о нажатии (вьюху и позицию адаптера) в onItemClick функцию, полученную при создании
+        }
     }
 
-    // Create new views (invoked by the layout manager)
+    // Создание макета
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VitaminAdapter.ViewHolder {
         // create a new view
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.item_vitamin, parent, false)
-        return ViewHolder(v)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_vitamin, parent, false) //создаём макет из xmlки
+        return ViewHolder(itemView, onItemClick) //передаём макету созданную вьюху и обработчик нажатий, полученный при создании адаптера
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
+    // Контент. Связи вьюх макета с данными
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element

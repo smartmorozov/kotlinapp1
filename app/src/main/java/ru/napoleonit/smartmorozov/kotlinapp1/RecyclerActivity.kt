@@ -7,6 +7,10 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_recycler.* //для байндинга элементов без findViewById
 import java.util.ArrayList
+import android.view.View
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.Toast
 
 class RecyclerActivity : AppCompatActivity() {
 
@@ -26,10 +30,28 @@ class RecyclerActivity : AppCompatActivity() {
         else //если ориентация портретная
             vitamins_rv.layoutManager = LinearLayoutManager(this) //используем линейный лейаут менеджер
 
+        // штука, которая запускается при нажатиях на элементы списка
+        val onItemClick = { view: View, position: Int -> //знает о том какой элемент нажали и что именно в нём
+            val toast = Toast.makeText(applicationContext, "", Toast.LENGTH_SHORT) //переменная для отображаемого сообщения
+            when(view.id) { //определяем по какой вьюхе в элементе тыкнули
+                R.id.vitamin_cv,
+                R.id.vitamin_name -> toast.setText(vitamins[position].name) //добавляем к сообщению значения из конкретного элемента
+                R.id.vitamin_description -> toast.setText(vitamins[position].description)
+                R.id.vitamin_iv -> {
+                    val toastContainer = toast.getView() as LinearLayout//перехватываем вид тоста
+                    val sampleImageView = ImageView(applicationContext)//бахаем новую картинку
+                    sampleImageView.setImageResource(vitamins[position].avatar)//помещаем значёк в картинку
+                    toastContainer.removeAllViews() //удаляем другие вьюхи из тоста (пустой текст)
+                    toastContainer.addView(sampleImageView, 0)//добавляем картинку в тост вперёд текста
+                }
+            }
+            toast.show() //отображаем сообщение
+        }
+
         initializeData()//заполнение данных
 
         // specify an adapter
-        vitamins_rv.adapter = VitaminAdapter(vitamins)
+        vitamins_rv.adapter = VitaminAdapter(vitamins, onItemClick) //при создании адаптера передаём в него данные и обработчик нажатий
     }
 
     private fun initializeData() {
