@@ -30,7 +30,10 @@ class VitaminAdapter (
 
         //обработчик нажатий
         override fun onClick(view: View) {
-            onItemClick(view, adapterPosition) //передаёт инфу о нажатии (вьюху и позицию адаптера) в onItemClick функцию, полученную при создании
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION) { //проверка, что позиция адаптера определена (для java надо будет проверять ещё не равно ли null)
+                onItemClick(view, position) //передаёт инфу о нажатии (вьюху и позицию адаптера) в onItemClick функцию, полученную при создании
+            }
         }
     }
 
