@@ -11,11 +11,11 @@ import android.widget.ImageView
 
 class VitaminAdapter (
         private val vitamins: MutableList<Vitamin>, //принимаем данные
-        private val onItemClick: (View, Int) -> Unit  //и штуку, которой нужно передавать инфу о нажатиях
+        private val onItemClick: RecyclerViewClickListener   //и штуку, которой нужно передавать инфу о нажатиях
 ) : RecyclerView.Adapter<VitaminAdapter.ViewHolder>() {
 
     // Макет для элементов. Создаёт связи с вьюхами и навешивает на них слушателей нажатий.
-    class ViewHolder(itemView: View, private val onItemClick: (View, Int) -> Unit) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    class ViewHolder(itemView: View, private val onItemClick: RecyclerViewClickListener ) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         val cv: CardView = itemView.findViewById(R.id.vitamin_cv) as CardView
         val vitaminName: TextView = itemView.findViewById(R.id.vitamin_name)
         val vitaminDescription: TextView = itemView.findViewById(R.id.vitamin_description)
@@ -32,7 +32,7 @@ class VitaminAdapter (
         override fun onClick(view: View) {
             val position = adapterPosition
             if (position != RecyclerView.NO_POSITION) { //проверка, что позиция адаптера определена (для java надо будет проверять ещё не равно ли null)
-                onItemClick(view, position) //передаёт инфу о нажатии (вьюху и позицию адаптера) в onItemClick функцию, полученную при создании
+                onItemClick.onClick(view, position) //передаёт инфу о нажатии (вьюху и позицию адаптера) в onItemClick функцию, полученную при создании
             }
         }
     }

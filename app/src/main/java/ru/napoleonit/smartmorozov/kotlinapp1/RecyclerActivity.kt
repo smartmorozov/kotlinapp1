@@ -31,22 +31,24 @@ class RecyclerActivity : AppCompatActivity() {
             vitamins_rv.layoutManager = LinearLayoutManager(this) //используем линейный лейаут менеджер
 
         // штука, которая запускается при нажатиях на элементы списка
-        val onItemClick = { view: View, position: Int -> //знает о том какой элемент нажали и что именно в нём
-            if (vitamins.size > 0 && position >= 0 && position < vitamins.size  ) { //проверка наличия позиции в массиве и существования элементов в массиве
-                val toast = Toast.makeText(applicationContext, "", Toast.LENGTH_SHORT) //переменная для отображаемого сообщения
-                when(view.id) { //определяем по какой вьюхе в элементе тыкнули
-                    R.id.vitamin_cv,
-                    R.id.vitamin_name -> toast.setText(vitamins[position].name) //добавляем к сообщению значения из конкретного элемента
-                    R.id.vitamin_description -> toast.setText(vitamins[position].description)
-                    R.id.vitamin_iv -> {
-                        val toastContainer = toast.view as LinearLayout//перехватываем вид тоста
-                        val sampleImageView = ImageView(applicationContext)//бахаем новую картинку
-                        sampleImageView.setImageResource(vitamins[position].avatar)//помещаем значёк в картинку
-                        toastContainer.removeAllViews() //удаляем другие вьюхи из тоста (пустой текст)
-                        toastContainer.addView(sampleImageView, 0)//добавляем картинку в тост вперёд текста
+        val onItemClick = object : RecyclerViewClickListener {
+            override fun onClick(view: View, position: Int) { //знает о том какой элемент нажали и что именно в нём
+                if (vitamins.size > 0 && position >= 0 && position < vitamins.size  ) { //проверка наличия позиции в массиве и существования элементов в массиве
+                    val toast = Toast.makeText(applicationContext, "", Toast.LENGTH_SHORT) //переменная для отображаемого сообщения
+                    when(view.id) { //определяем по какой вьюхе в элементе тыкнули
+                        R.id.vitamin_cv,
+                        R.id.vitamin_name -> toast.setText(vitamins[position].name) //добавляем к сообщению значения из конкретного элемента
+                        R.id.vitamin_description -> toast.setText(vitamins[position].description)
+                        R.id.vitamin_iv -> {
+                            val toastContainer = toast.view as LinearLayout//перехватываем вид тоста
+                            val sampleImageView = ImageView(applicationContext)//бахаем новую картинку
+                            sampleImageView.setImageResource(vitamins[position].avatar)//помещаем значёк в картинку
+                            toastContainer.removeAllViews() //удаляем другие вьюхи из тоста (пустой текст)
+                            toastContainer.addView(sampleImageView, 0)//добавляем картинку в тост вперёд текста
+                        }
                     }
+                    toast.show() //отображаем сообщение
                 }
-                toast.show() //отображаем сообщение
             }
         }
 
