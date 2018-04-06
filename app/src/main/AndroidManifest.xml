@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="ru.napoleonit.smartmorozov.kotlinapp1">
 
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- доступ в инет -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- доступность инета -->
+
     <application
         android:name=".App"
         android:allowBackup="true"

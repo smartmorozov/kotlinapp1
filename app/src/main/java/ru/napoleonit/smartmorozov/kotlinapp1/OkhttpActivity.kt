@@ -1,5 +1,6 @@
 package ru.napoleonit.smartmorozov.kotlinapp1
 
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.content.res.Configuration //для определения ориентации экрана
@@ -11,6 +12,11 @@ import android.view.View
 import android.widget.Toast
 import kotlinx.coroutines.experimental.* //корутины
 import kotlinx.coroutines.experimental.android.*
+import android.net.ConnectivityManager //для проверки подключений
+import okhttp3.OkHttpClient //okhttp для работы с сетью
+import okhttp3.Request
+import okhttp3.Response
+import com.google.gson.Gson //gson для работы с json
 
 class OkhttpActivity : AppCompatActivity() {
 
@@ -49,22 +55,37 @@ class OkhttpActivity : AppCompatActivity() {
         vitamins_rv.adapter = VitaminDBAdapter(vitamins, onItemClick) //при создании адаптера передаём в него данные и обработчик нажатий
 
         launch(UI, parent = job) {//корутина выполняющаяся в UI потоке, с общим родителем Джобом, чтобы управлять её завершением
-            val cachedVitamins = async(coroutineContext + CommonPool) { //получаем витамины из базы (получаем в фоне, но с родительским контекстом для управления)
-                App.instance.database.vitaminDBDao().all //все записи из базы
-            }.await() //дожидаемся получения
-            if (cachedVitamins.isNotEmpty()) { //если получили список с элементами
-                vitamins.addAll(cachedVitamins) //наполняем данными из базы текущий список
-            } else { //если список пустой
-                val databaseJob = launch(coroutineContext + CommonPool) { //запуск в фоновых потоках с родительским контекстом для управления
-                    App.instance.database.vitaminDBDao().firstData() //запускаем заполнение базы первыми значениями
-                }
-                databaseJob.join() //ждём завершения работы с базой
-                val firstVitamins = async(coroutineContext + CommonPool) { //получаем созданные данные (получаем в фоне, но с родительским контекстом для управления)
-                    App.instance.database.vitaminDBDao().all //все записи из базы
+            //проверка наличия подключения
+            val myConnMgr = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager //менеджер подключений
+            val networkinfo = myConnMgr.activeNetworkInfo//узнаём инфу о сети
+            if (networkinfo != null && networkinfo.isConnected) { //если есть подключение
+                val cloudVitamins = async(coroutineContext + CommonPool) { //получаем витамины из сети (получаем в фоне, но с родительским контекстом для управления)
+
+                    // Создаём клиент для HTTP запросов
+                    val httpClient = OkHttpClient()
+
+                    // Создаём запрос
+                    val request = Request.Builder()
+                            .url("http://176.226.158.29:8080/")//176.226.158.29   192.168.1.244 //TODO указать действующий адрес (возможно вынести в константы или в строки, ещё вариант создать экран с настройками)
+                            .build()
+                    try {
+                        val response = httpClient.newCall(request).execute()
+                        val responseText = response.body()!!.string() //TODO возможно сделать проверку что витамины не пусты и бахнуть вывод отдельного сообщения об этом
+                        Gson().fromJson(responseText, VitaminDB.List::class.java)
+                    } catch (e: Exception) {
+                        e.printStackTrace();
+                        return@async null
+                    }
                 }.await() //дожидаемся получения
-                vitamins.addAll(firstVitamins) //наполняем данными из базы текущий список
+                if(cloudVitamins!=null) {
+                    vitamins.addAll(cloudVitamins) //наполняем данными из базы текущий список
+                    vitamins_rv.adapter.notifyDataSetChanged() //уведомляем адаптер, что данные изменились
+                } else {
+                    Toast.makeText(applicationContext, R.string.request_fail, Toast.LENGTH_LONG).show()//выводим сообщение об ошибке //TODO можно потом заменить тосты на нижние шторки
+                }
+            } else {
+                Toast.makeText(applicationContext, R.string.no_connection, Toast.LENGTH_LONG).show()//говорим, что нет Инета //TODO можно потом заменить тосты на нижние шторки
             }
-            vitamins_rv.adapter.notifyDataSetChanged() //уведомляем адаптер, что данные изменились
         }
     }
 
