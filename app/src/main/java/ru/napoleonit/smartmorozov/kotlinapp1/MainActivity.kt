@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         //Присваиваем кнопкам обработчик
         button1.setOnClickListener(this)
         button2.setOnClickListener(this)
+        button3.setOnClickListener(this)
     }
 
     //обработчик нажатий
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         when(view.id) {
             R.id.button1 -> intent.setClass(this, RecyclerActivity::class.java)
             R.id.button2 -> intent.setClass(this, DatabaseActivity::class.java)
+            R.id.button3 -> intent.setClass(this, OkhttpActivity::class.java)
         }
 
         startActivity(intent)

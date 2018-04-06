@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="ru.napoleonit.smartmorozov.kotlinapp1">
 
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- доступ в инет -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- доступность инета -->
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -35,6 +38,16 @@
         <activity
             android:name=".DatabaseActivity"
             android:label="@string/button2"
+            android:parentActivityName=".MainActivity"
+            tools:targetApi="jelly_bean">
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".OkhttpActivity"
+            android:label="@string/button3"
             android:parentActivityName=".MainActivity"
             tools:targetApi="jelly_bean">
             <!-- The meta-data tag is required if you support API level 15 and lower -->

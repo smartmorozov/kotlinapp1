@@ -2,5 +2,8 @@
     <string name="app_name">kotlinapp1</string>
     <string name="button1">RecyclerView</string>
     <string name="button2">Database</string>
+    <string name="button3">Okhttp</string>
     <string name="vitamin_s_avatar">vitamin\'s avatar</string>
+    <string name="no_connection">Отсутствует подключение к Интернету</string>
+    <string name="request_fail">Загрузка не удалась\nПопробуйте позже</string>
 </resources>

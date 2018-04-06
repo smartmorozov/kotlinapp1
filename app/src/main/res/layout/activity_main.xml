@@ -60,6 +60,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintVertical_weight="2"
         style="@style/mainButton">
+        <ImageView
+            android:id="@+id/imageView3"
+            android:src="@drawable/arrows128"
+            android:contentDescription="@string/button3"
+            style="@style/imageOnButton" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:text="@string/button3"
+            style="@style/textOnButton" />
     </LinearLayout>
 
     <LinearLayout
