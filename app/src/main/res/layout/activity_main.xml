@@ -40,6 +40,16 @@
         app:layout_constraintBottom_toTopOf="@+id/button5"
         app:layout_constraintStart_toStartOf="@id/guideline1"
         style="@style/mainButton">
+        <ImageView
+            android:id="@+id/imageView2"
+            android:src="@drawable/database128"
+            android:contentDescription="@string/button2"
+            style="@style/imageOnButton" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:text="@string/button2"
+            style="@style/textOnButton" />
     </LinearLayout>
 
     <LinearLayout

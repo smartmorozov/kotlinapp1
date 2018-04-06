@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         //Присваиваем кнопкам обработчик
         button1.setOnClickListener(this)
+        button2.setOnClickListener(this)
     }
 
     //обработчик нажатий
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         // по id определеяем кнопку, вызвавшую этот обработчик
         when(view.id) {
             R.id.button1 -> intent.setClass(this, RecyclerActivity::class.java)
+            R.id.button2 -> intent.setClass(this, DatabaseActivity::class.java)
         }
 
         startActivity(intent)
