@@ -6,11 +6,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.View
 import android.widget.TextView
-import android.widget.ImageView
 
 
 class VitaminDBAdapter (
-        private val vitamins: MutableList<Vitamin>, //принимаем данные
+        private val vitamins: MutableList<VitaminDB>, //принимаем данные
         private val onItemClick: (View, Int) -> Unit  //и штуку, которой нужно передавать инфу о нажатиях
 ) : RecyclerView.Adapter<VitaminDBAdapter.ViewHolder>() {
 
@@ -19,13 +18,11 @@ class VitaminDBAdapter (
         val cv: CardView = itemView.findViewById(R.id.vitamin_cv) as CardView
         val vitaminName: TextView = itemView.findViewById(R.id.vitamin_name)
         val vitaminDescription: TextView = itemView.findViewById(R.id.vitamin_description)
-        val vitaminIv: ImageView = itemView.findViewById(R.id.vitamin_iv)
 
         init {
             cv.setOnClickListener(this)
             vitaminName.setOnClickListener(this)
             vitaminDescription.setOnClickListener(this)
-            vitaminIv.setOnClickListener(this)
         }
 
         //обработчик нажатий
@@ -50,7 +47,6 @@ class VitaminDBAdapter (
         // - replace the contents of the view with that element
         holder.vitaminName.text = vitamins[position].name
         holder.vitaminDescription.text = vitamins[position].description
-        holder.vitaminIv.setImageResource(vitamins[position].avatar)
     }
 
     // Return the size of your dataset (invoked by the layout manager)
