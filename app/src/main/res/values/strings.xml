@@ -2,5 +2,6 @@
     <string name="app_name">kotlinapp1</string>
     <string name="button1">RecyclerView</string>
     <string name="button2">Database</string>
+    <string name="button3">Okhttp</string>
     <string name="vitamin_s_avatar">vitamin\'s avatar</string>
 </resources>

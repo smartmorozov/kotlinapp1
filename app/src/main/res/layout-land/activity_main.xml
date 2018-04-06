@@ -60,7 +60,18 @@
         app:layout_constraintEnd_toStartOf="@+id/button4"
         app:layout_constraintBottom_toTopOf="@id/guideline1"
         app:layout_constraintStart_toEndOf="@+id/button1"
-        app:layout_constraintHorizontal_weight="2"/>
+        app:layout_constraintHorizontal_weight="2">
+        <ImageView
+            android:id="@+id/imageView3"
+            android:src="@drawable/arrows128"
+            android:contentDescription="@string/button3"
+            style="@style/imageOnButton" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:text="@string/button3"
+            style="@style/textOnButton" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/button4"
